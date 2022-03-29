@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import util.WebDriverManager;
 
 public abstract class BaseTests {
     protected static WebDriver driver;
@@ -30,8 +31,9 @@ public abstract class BaseTests {
     }
 
     @AfterAll
-    static void tearDown() {
-        driver.close();
-        driver.quit();
+    static void tearDown(){
+        WebDriverManager.quitWebDriver(driver);
     }
+
+
 }
