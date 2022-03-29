@@ -18,10 +18,11 @@ public class LoginTest extends BaseTests {
     }
 
     @Test
-    public void emptyCredentialsTest() {
-        List<String> loginCredentials = indexPage.getLoginCredentials("empty");
-        indexPage.login(loginCredentials);
-        Assertions.assertEquals(0, 0);
+    public void emptyCredentialsTest(){
+        indexPage.clickLoginButton();
+        WebDriverManager.waitUntilVisible(driver, indexPage.getWrongCredentials());
+        Assertions.assertEquals("Sorry, your username and password are incorrect - please try again.",
+                indexPage.getWrongCredentialsText(), "Messages do not match!");
     }
 
     @Test
