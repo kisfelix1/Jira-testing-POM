@@ -13,6 +13,7 @@ import java.util.List;
 public class IndexPage {
     private final WebDriver driver;
     private static final String LOGIN_TEST_DATA_PATH = "src/test/resources/login.csv";
+    private static final String USER_PROFIL_PAGE_URL = "https://jira-auto.codecool.metastage.net/secure/ViewProfile.jspa";
     private final int USERNAME_COLUMN_INDEX = 1;
     private final int PASSWORD_COLUMN_INDEX = 2;
 
@@ -27,11 +28,14 @@ public class IndexPage {
     @FindBy(xpath = "//input[@id='login-form-password']")
     WebElement passwordInputField;
 
-    @FindBy(xpath = "//input[@id='login']")
+    @FindBy(xpath = "//input[@name='login']")
     WebElement loginButton;
 
-    @FindBy(xpath = "//div[@id='usernameerror']/p")
+    @FindBy(xpath = "//div[@class='aui-message aui-message-error']/p")
     WebElement wrongCredentials;
+
+    @FindBy(xpath = "//a[@id='header-details-user-fullname']")
+    WebElement userIcon;
 
     public String getWrongCredentialsText(){
         return wrongCredentials.getText();
@@ -39,6 +43,10 @@ public class IndexPage {
 
     public WebElement getWrongCredentials() {
         return wrongCredentials;
+    }
+
+    public WebElement getUserIcon(){
+        return userIcon;
     }
 
     public void setUsernameInputField(List<String> data){
@@ -62,7 +70,11 @@ public class IndexPage {
         }
     }
 
-    public void login(List<String> loginCredentials) {
+    public String getUserProfilePageUrl(){
+        return USER_PROFIL_PAGE_URL;
+    }
+
+    public void login(List<String> loginCredentials){
         setUsernameInputField(loginCredentials);
         setPasswordInputField(loginCredentials);
         clickLoginButton();
