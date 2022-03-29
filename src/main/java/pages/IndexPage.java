@@ -80,4 +80,10 @@ public class IndexPage {
         clickLoginButton();
     }
 
+    public void successfulLogin(){
+        List<String> loginCredentials = getLoginCredentials("valid");
+        login(loginCredentials);
+        WebDriverManager.waitUntilVisible(driver, getUserIcon());
+    }
+
 }
