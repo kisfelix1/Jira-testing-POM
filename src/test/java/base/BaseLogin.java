@@ -2,6 +2,7 @@ package base;
 
 import org.junit.jupiter.api.Assertions;
 import pages.IndexPage;
+import util.PageUrlCollection;
 import pages.ProfilePage;
 import util.WebDriverManager;
 
@@ -11,7 +12,7 @@ public class BaseLogin extends BaseTests{
     protected String url;
 
     public BaseLogin() {
-        this.url = "https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa";
+        this.url = PageUrlCollection.INDEX.getUrl();
     }
 
     @Override

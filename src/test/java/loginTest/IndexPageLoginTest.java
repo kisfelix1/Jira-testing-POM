@@ -2,11 +2,12 @@ package loginTest;
 
 import base.BaseLoginTest;
 import org.junit.jupiter.api.Test;
+import util.PageUrlCollection;
 
 public class IndexPageLoginTest extends BaseLoginTest {
 
     public IndexPageLoginTest() {
-        super("https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa");
+        super(PageUrlCollection.INDEX.getUrl());
     }
 
     @Test
