@@ -1,17 +1,13 @@
 package loginTest;
 
-import base.BaseTests;
-import org.junit.jupiter.api.Assertions;
+import base.BaseLoginTest;
 import org.junit.jupiter.api.Test;
-import pages.IndexPage;
-import pages.ProfilePage;
-import util.WebDriverManager;
 
-import java.util.List;
+public class IndexPageLoginTest extends BaseLoginTest {
 
-public class LoginTest extends BaseTests {
-    IndexPage indexPage = new IndexPage(driver);
-    ProfilePage profilePage = new ProfilePage(driver);
+    public IndexPageLoginTest() {
+        super("https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa");
+    }
 
     @Test
     public void successfulLoginTestOnIndexPage() {
