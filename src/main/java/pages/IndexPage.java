@@ -28,10 +28,10 @@ public class IndexPage {
     @FindBy(xpath = "//input[@id='login-form-password']")
     WebElement passwordInputField;
 
-    @FindBy(xpath = "//input[@id='login']")
+    @FindBy(xpath = "//input[@name='login']")
     WebElement loginButton;
 
-    @FindBy(xpath = "//div[@id='usernameerror']/p")
+    @FindBy(xpath = "//div[@class='aui-message aui-message-error']/p")
     WebElement wrongCredentials;
 
     @FindBy(xpath = "//a[@id='header-details-user-fullname']")
