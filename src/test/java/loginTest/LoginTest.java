@@ -24,7 +24,7 @@ public class LoginTest extends BaseTests {
     }
 
     @Test
-    public void emptyCredentialsTest(){
+    public void emptyCredentialsTestOnIndexPage(){
         indexPage.clickLoginButton();
         WebDriverManager.waitUntilVisible(driver, indexPage.getWrongCredentials());
         Assertions.assertEquals("Sorry, your username and password are incorrect - please try again.",
@@ -32,13 +32,11 @@ public class LoginTest extends BaseTests {
     }
 
     @Test
-    public void wrongPasswordLoginTest(){
+    public void wrongPasswordLoginTestOnIndexPage(){
         List<String> loginCredentials = indexPage.getLoginCredentials("invalid_password");
         indexPage.login(loginCredentials);
         WebDriverManager.waitUntilVisible(driver, indexPage.getWrongCredentials());
         Assertions.assertEquals("Sorry, your username and password are incorrect - please try again.",
                 indexPage.getWrongCredentialsText(), "Messages do not match!");
     }
-
-
 }
