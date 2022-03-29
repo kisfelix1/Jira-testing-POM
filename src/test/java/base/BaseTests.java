@@ -23,12 +23,10 @@ public abstract class BaseTests {
 
     @BeforeEach
     public void prepareTest() {
-        goHomePage();
+        openPage();
     }
 
-    private void goHomePage() {
-        driver.get("https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa");
-    }
+    abstract void openPage();
 
     @AfterAll
     static void tearDown(){
