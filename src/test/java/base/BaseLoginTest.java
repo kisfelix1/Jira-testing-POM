@@ -26,13 +26,8 @@ public class BaseLoginTest extends BaseTests{
         WebDriverManager.waitUntilVisible(driver, indexPage.getWrongCredentials());
     }
 
-    public void wrongPasswordLoginTest() {
-
-    }
-
-
     public void openProfilePage(){
-        driver.get(PageUrlCollection.PROFIL.getUrl());
+        driver.get(PageUrlCollection.PROFILE.getUrl());
         WebDriverManager.waitUntilVisible(driver, profilePage.getUsername());
     }
 }
