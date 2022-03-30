@@ -51,4 +51,8 @@ public abstract class BaseTests {
         indexPage.logout();
     }
 
+    protected void refreshPage(){
+        driver.navigate().refresh();
+    }
+
 }
