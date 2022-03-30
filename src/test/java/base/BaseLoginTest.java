@@ -10,9 +10,8 @@ public class BaseLoginTest extends BaseTests{
     protected ProfilePage profilePage = new ProfilePage(driver);
 
     public BaseLoginTest(String url) {
-        this.url = url;
+        super(url);
     }
-
 
     public void emptyCredentialLogin() {
         indexPage.clickLoginButton();
@@ -28,6 +27,7 @@ public class BaseLoginTest extends BaseTests{
     private void waitForLoginFailPopupText(){
         WebDriverManager.waitUntilVisible(driver, indexPage.getWrongCredentials());
     }
+
 
     public void openProfilePage(){
         driver.get(PageUrlCollection.PROFILE.getUrl());

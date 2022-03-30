@@ -1,4 +1,4 @@
-package loginTest;
+package logout;
 
 import base.BaseTests;
 import org.junit.jupiter.api.Assertions;
