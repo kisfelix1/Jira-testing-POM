@@ -19,8 +19,20 @@ public class IssuePage {
     @FindBy(xpath = "//h1[@id='summary-val']")
     WebElement issueSummary;
 
-    @FindBy(xpath = "//span[id='type-val']")
-    WebElement issueStory;
+    @FindBy(xpath = "//span[@id='type-val']")
+    WebElement issueType;
+
+    @FindBy(xpath = "//a[@id='edit-issue']")
+    WebElement editIssueButton;
+
+    @FindBy(xpath = "//input[@id='summary']")
+    WebElement screenIssueSummary;
+
+    @FindBy(xpath = "//input[@id='issuetype-field']")
+    WebElement screenIssueType;
+
+    @FindBy(xpath = "//input[@id='edit-issue-submit']")
+    WebElement screenUpdateButton;
 
     public String getIssueKey() {
         return issueKey.getText();
@@ -30,7 +42,7 @@ public class IssuePage {
         return issueSummary.getText();
     }
 
-    public String getStoryText() {
-        return issueStory.getText();
+    public String getTypeText() {
+        return issueType.getText();
     }
 }
