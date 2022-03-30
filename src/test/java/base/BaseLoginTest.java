@@ -1,8 +1,10 @@
 package base;
 
+import pages.ProfilePage;
 import util.WebDriverManager;
 
-public class BaseLoginTest extends BaseLogin{
+public class BaseLoginTest extends BaseTests{
+    protected ProfilePage profilePage = new ProfilePage(driver);
 
     public BaseLoginTest(String url) {
         this.url = url;
