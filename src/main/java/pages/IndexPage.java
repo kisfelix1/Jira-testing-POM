@@ -63,6 +63,7 @@ public class IndexPage {
     }
 
     public void clickLoginButton(){
+        WebDriverManager.waitUntilVisible(driver, loginButton);
         loginButton.click();
     }
 
@@ -81,6 +82,7 @@ public class IndexPage {
 
     public void login(String key){
         List<String> loginCredentials = getLoginCredentials(key);
+        WebDriverManager.waitUntilVisible(driver, passwordInputField);
         setUsernameInputField(loginCredentials);
         setPasswordInputField(loginCredentials);
         clickLoginButton();
