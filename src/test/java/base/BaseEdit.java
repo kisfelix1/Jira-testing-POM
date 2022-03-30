@@ -62,6 +62,14 @@ public class BaseEdit extends BaseTests{
                 && issuePage.isCorrectType(OLD_TYPE_FOR_CANCEL);
     }
 
+    public boolean editButtonIsVisible(){
+        return issuePage.hasEditButton();
+    }
+
+    public void openIssue(String issueName, int issueId){
+        driver.get(String.format("https://jira-auto.codecool.metastage.net/projects/%s/issues/%s-%s", issueName, issueName, issueId));
+    }
+
     public void openDummyIssuePage(){
         driver.get(PageUrlCollection.EDIT_DUMMY_ISSUE.getUrl());
     }
