@@ -4,7 +4,8 @@ public enum PageUrlCollection {
     INDEX("https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa"),
     LOGIN("https://jira-auto.codecool.metastage.net/login.jsp"),
     PROFILE("https://jira-auto.codecool.metastage.net/secure/ViewProfile.jspa"),
-    EDIT_DUMMY_ISSUE("https://jira-auto.codecool.metastage.net/browse/MTP-1845");
+    EDIT_DUMMY_ISSUE("https://jira-auto.codecool.metastage.net/browse/MTP-1845"),
+    CANCEL_EDIT_DUMMY_ISSUE("https://jira-auto.codecool.metastage.net/browse/MTP-1846");
 
     private final String url;
 
