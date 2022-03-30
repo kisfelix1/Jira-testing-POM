@@ -4,6 +4,8 @@ import pages.IssuePage;
 import util.PageUrlCollection;
 import util.WebDriverManager;
 
+import java.util.concurrent.TimeUnit;
+
 public class BaseEdit extends BaseTests{
     protected IssuePage issuePage = new IssuePage(driver);
     private final String OLD_SUMMARY = "Test issue for edit";
@@ -21,10 +23,11 @@ public class BaseEdit extends BaseTests{
         issuePage.clickEditButton();
     }
 
-    public void editIssueWithNewData(){
+    public void editIssueWithNewData() throws InterruptedException {
         issuePage.editIssueSummary(NEW_SUMMARY);
         issuePage.editIssueType(NEW_TYPE);
         issuePage.clickUpdateButton();
+        Thread.sleep(2000);
     }
 
     public void editIssueWithNewDataThenCancel(){
@@ -38,6 +41,7 @@ public class BaseEdit extends BaseTests{
     }
 
     public void revertIssueToOldData(){
+        clickEditButton();
         issuePage.editIssueSummary(OLD_SUMMARY);
         issuePage.editIssueType(OLD_TYPE);
         issuePage.clickUpdateButton();

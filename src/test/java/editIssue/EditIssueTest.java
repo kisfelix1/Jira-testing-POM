@@ -8,7 +8,7 @@ import util.PageUrlCollection;
 public class EditIssueTest extends BaseEdit {
 
     @Test
-    public void editIssueThroughScreenTest() {
+    public void editIssueThroughScreenTest() throws InterruptedException {
         login();
         openDummyIssuePage();
         Assertions.assertTrue(issueContainsOldData());
