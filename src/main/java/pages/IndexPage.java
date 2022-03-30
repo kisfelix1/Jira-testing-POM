@@ -13,19 +13,17 @@ import java.io.IOException;
 import java.util.List;
 
 public class IndexPage {
+    IssuePage issuePage;
     private final WebDriver driver;
     private static final String LOGIN_TEST_DATA_PATH = "src/test/resources/login.csv";
-    private static final String ISSUE_TEST_DATA_PATH = "src/test/resources/create_issue.csv";
     private final int USERNAME_COLUMN_INDEX = 1;
     private final int PASSWORD_COLUMN_INDEX = 2;
-    private final int PROJECT_NAME_COLUMN_INDEX = 1;
-    private final int ISSUE_TYPE_COLUMN_INDEX = 2;
-    private final int SUMMARY_COLUMN_INDEX = 3;
-    private String popUpIssueKey = "";
+    public static final String issueURL = "https://jira-auto.codecool.metastage.net/issues/?jql=project%20%3D%20%22Main%20Testing%20Project%22%20AND%20summary%20~%20MTP-8982431";
 
     public IndexPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        this.issuePage = new IssuePage(driver);
     }
 
     @FindBy(xpath = "//input[@id='login-form-username']")
@@ -52,9 +50,6 @@ public class IndexPage {
     @FindBy(xpath = "//a[@id='create_link']")
     WebElement createButton;
 
-    @FindBy(xpath = "//section[@id='create-issue-dialog']")
-    WebElement createIssueModal;
-
     @FindBy(xpath = "//input[@id='project-field']")
     WebElement projectInputField;
 
@@ -64,10 +59,16 @@ public class IndexPage {
     @FindBy(xpath = "//input[@id='summary']")
     WebElement summaryInputField;
 
+    @FindBy(xpath = "//a[@id='opsbar-operations_more']")
+    WebElement moreButton;
+
+    @FindBy(xpath = "//a/span[contains(text(), 'Delete')]")
+    WebElement deleteButton;
+
     @FindBy(xpath = "//input[@id='create-issue-submit']")
     WebElement createIssueCreateButton;
 
-    @FindBy(xpath = "//a[contains(text(), ' has been successfully created.')]")
+    @FindBy(xpath = "//a[@class='issue-created-key issue-link']")
     WebElement createIssuePopUp;
 
     public String getWrongCredentialsText(){
@@ -129,61 +130,59 @@ public class IndexPage {
         WebDriverManager.waitUntilVisible(driver, summaryInputField);
     }
 
-    public void fillCreateIssueForMTP() throws IOException{
-        String key = "MTP";
-        List<String> data = getIssueData(key);
-        setSummaryInputField(data);
-        setIssueTypeField(data);
-//        setProjectInputField(data);
-    }
-
-    public void setProjectInputField(List<String> data) {
-        projectInputField.sendKeys(getProjectNameData(data));
-    }
-
-    public void setIssueTypeField(List<String> data) {
-        issueTypeField.sendKeys(Keys.CONTROL, "a");
-        issueTypeField.sendKeys(Keys.DELETE);
-        issueTypeField.sendKeys(getIssueTypeData(data));
-    }
-
-    public void setSummaryInputField(List<String> data) {
-        summaryInputField.sendKeys(getSummaryData(data));
-    }
-
-    public void clickCreateIssueCreateButton() {
-        createIssueCreateButton.click();
-    }
-
     public void clickCreatedIssueLink() {
         WebDriverManager.waitUntilVisible(driver, createIssuePopUp);
-        popUpIssueKey = getCreatedIssueKey();
         createIssuePopUp.click();
     }
 
-    public String getCreatedIssueKey() {
-        return createIssuePopUp.getAttribute("data-issue-key");
+    public void fillProjectInputField(){
+        getProjectInputField().clear();
+        getProjectInputField().click();
+        getProjectInputField().sendKeys("MTP");
+        getProjectInputField().sendKeys(Keys.ENTER);
     }
 
-    public String getPopUpIssueKey() {
-        return popUpIssueKey;
-    }
-
-    public List<String> getIssueData(String key) throws IOException {
-        return Util.getTestData(key,ISSUE_TEST_DATA_PATH);
-    }
-
-    public String getProjectNameData(List<String> issueData) {
-        return issueData.get(PROJECT_NAME_COLUMN_INDEX);
-    }
-
-    public String getIssueTypeData(List<String> issueData) {
-        return issueData.get(ISSUE_TYPE_COLUMN_INDEX);
-    }
-
-    public String getSummaryData(List<String> issueData) {
-        return issueData.get(SUMMARY_COLUMN_INDEX);
+    public String getSummaryIssueName(){
+        WebDriverManager.waitUntilVisible(driver,issuePage.getIssueSummary());
+        return issuePage.getSummaryText();
     }
 
 
+    public void navigateToURL(String URL){
+        WebDriverManager.waitUntilVisible(driver, createIssuePopUp);
+        driver.get(URL);
+    }
+
+    public void fillSummaryInputField(){
+        WebDriverManager.waitUntilClickable(driver, getSummaryInputField());
+        getSummaryInputField().clear();
+        getSummaryInputField().click();
+        getSummaryInputField().sendKeys("MTP-8982431");
+        getSummaryInputField().sendKeys(Keys.ENTER);
+    }
+
+    public WebElement getCreateIssueCreateButton() {
+        return createIssueCreateButton;
+    }
+
+    public WebElement getSummaryInputField() {
+        return summaryInputField;
+    }
+
+    public WebElement getProjectInputField() {
+        return projectInputField;
+    }
+
+    public void clickCreateIssueButton() {
+        WebDriverManager.waitUntilVisible(driver, getCreateIssueCreateButton());
+        getCreateIssueCreateButton().click();
+    }
+
+    public void deleteIssue(){
+        moreButton.click();
+        WebDriverManager.waitUntilClickable(driver,deleteButton);
+        deleteButton.click();
+        WebDriverManager.waitUntilClickable(driver,issuePage.getDeleteIssueSubmit());
+        issuePage.getDeleteIssueSubmit().click();
+    }
 }
