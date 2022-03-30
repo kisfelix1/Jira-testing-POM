@@ -1,6 +1,7 @@
 package loginTest;
 
 import base.BaseLoginTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import util.PageUrlCollection;
 
@@ -12,16 +13,25 @@ public class LoginPageLoginTst extends BaseLoginTest {
 
     @Test
     public void successfulLoginTestOnLoginPage() {
-        successfulLoginTest();
+        indexPage.successfulLogin();
+        openProfilePage();
+        Assertions.assertEquals("automation16", profilePage.getUsernameText(), "Username do not match!");
+
     }
 
     @Test
     public void emptyCredentialsTestOnLoginPage(){
-        emptyCredentialsTest();
+        emptyCredentialLogin();
+        Assertions.assertEquals("Sorry, your username and password are incorrect - please try again.",
+                indexPage.getWrongCredentialsText(), "Messages do not match!");
+        indexPage.successfulLogin();
     }
 
     @Test
     public void wrongPasswordLoginTestOnLoginPage(){
-        wrongPasswordLoginTest();
+        wrongPasswordLogin();
+        Assertions.assertEquals("Sorry, your username and password are incorrect - please try again.",
+                indexPage.getWrongCredentialsText(), "Messages do not match!");
+        indexPage.successfulLogin();
     }
 }
