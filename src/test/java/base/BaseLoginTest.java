@@ -4,6 +4,8 @@ import pages.ProfilePage;
 import util.PageUrlCollection;
 import util.WebDriverManager;
 
+import java.util.List;
+
 public class BaseLoginTest extends BaseTests{
     protected ProfilePage profilePage = new ProfilePage(driver);
 
@@ -12,17 +14,18 @@ public class BaseLoginTest extends BaseTests{
     }
 
 
-    public void wrongPasswordLogin(){
-        indexPage.login("invalid_password");
-        waitForWrongLoginCredentialPopup();
-    }
-
     public void emptyCredentialLogin() {
         indexPage.clickLoginButton();
-        waitForWrongLoginCredentialPopup();
+        waitForLoginFailPopupText();
     }
 
-    private void waitForWrongLoginCredentialPopup(){
+    public void wrongPasswordLogin(){
+        List<String> loginCredentials = getLoginCredentials("invalid_password");
+        indexPage.attemptLogin(loginCredentials);
+        waitForLoginFailPopupText();
+    }
+
+    private void waitForLoginFailPopupText(){
         WebDriverManager.waitUntilVisible(driver, indexPage.getWrongCredentials());
     }
 

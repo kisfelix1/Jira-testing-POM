@@ -13,7 +13,7 @@ public class LoginPageLoginTest extends BaseLoginTest {
 
     @Test
     public void successfulLoginTestOnLoginPage() {
-        indexPage.successfulLogin();
+        login();
         openProfilePage();
         Assertions.assertEquals("automation16", profilePage.getUsernameText(), "Username do not match!");
         logout();
