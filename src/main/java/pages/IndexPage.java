@@ -39,6 +39,9 @@ public class IndexPage {
     @FindBy(xpath = "//a[@id='log_out']")
     WebElement logoutButton;
 
+    @FindBy(xpath = "//p[@class='title']/strong")
+    WebElement logoutNotification;
+
     public String getWrongCredentialsText(){
         return wrongCredentials.getText();
     }
@@ -61,6 +64,10 @@ public class IndexPage {
 
     public void clickLoginButton(){
         loginButton.click();
+    }
+
+    public String getLogoutNotificationText() {
+        return logoutNotification.getText();
     }
 
     public List<String> getLoginCredentials(String key){
