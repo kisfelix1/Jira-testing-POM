@@ -24,7 +24,8 @@ public class LoginPageLoginTst extends BaseLoginTest {
         emptyCredentialLogin();
         Assertions.assertEquals("Sorry, your username and password are incorrect - please try again.",
                 indexPage.getWrongCredentialsText(), "Messages do not match!");
-        successfulLoginTestOnLoginPage();
+        login();
+        logout();
     }
 
     @Test
@@ -32,6 +33,7 @@ public class LoginPageLoginTst extends BaseLoginTest {
         wrongPasswordLogin();
         Assertions.assertEquals("Sorry, your username and password are incorrect - please try again.",
                 indexPage.getWrongCredentialsText(), "Messages do not match!");
-        successfulLoginTestOnLoginPage();
+        login();
+        logout();
     }
 }
