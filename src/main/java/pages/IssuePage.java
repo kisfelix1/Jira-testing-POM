@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import util.WebDriverManager;
 
 public class IssuePage {
     private final WebDriver driver;
@@ -44,5 +45,38 @@ public class IssuePage {
 
     public String getTypeText() {
         return issueType.getText();
+    }
+
+    public void clickEditButton(){
+        editIssueButton.click();
+        WebDriverManager.waitUntilVisible(driver, screenUpdateButton);
+    }
+
+    public void editIssueSummary(String summary){
+        screenIssueSummary.clear();
+        screenIssueSummary.sendKeys(summary);
+    }
+
+    public void editIssueType(String type){
+        screenIssueType.click();
+        screenIssueType.sendKeys(type);
+    }
+
+    public void clickUpdateButton(){
+        screenUpdateButton.click();
+    }
+
+    public boolean isCorrectSummary(String summary){
+        WebDriverManager.waitUntilVisible(driver, issueSummary);
+        return getSummaryText().equals(summary);
+    }
+
+    public boolean isCorrectType(String type){
+        WebDriverManager.waitUntilVisible(driver, issueType);
+        return getTypeText().equals(type);
+    }
+
+    public void restartPageFactory(){
+        PageFactory.initElements(driver, this);
     }
 }
