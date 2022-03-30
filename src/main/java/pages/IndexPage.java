@@ -74,16 +74,18 @@ public class IndexPage {
         return USER_PROFIL_PAGE_URL;
     }
 
-    public void login(List<String> loginCredentials){
+    public void login(String key){
+        List<String> loginCredentials = getLoginCredentials(key);
         setUsernameInputField(loginCredentials);
         setPasswordInputField(loginCredentials);
         clickLoginButton();
     }
 
     public void successfulLogin(){
-        List<String> loginCredentials = getLoginCredentials("valid");
-        login(loginCredentials);
+        login("valid");
         WebDriverManager.waitUntilVisible(driver, getUserIcon());
     }
+
+
 
 }

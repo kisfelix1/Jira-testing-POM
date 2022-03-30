@@ -5,10 +5,18 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.IndexPage;
+import util.PageUrlCollection;
 import util.WebDriverManager;
 
 public abstract class BaseTests {
     protected static WebDriver driver;
+    protected IndexPage indexPage = new IndexPage(driver);
+    protected String url;
+
+    public BaseTests() {
+        this.url = PageUrlCollection.INDEX.getUrl();
+    }
 
     @BeforeAll
     public static void setChromeDriver() {
@@ -26,7 +34,9 @@ public abstract class BaseTests {
         openPage();
     }
 
-    abstract void openPage();
+    protected void openPage() {
+        driver.get(url);
+    }
 
     @AfterAll
     static void tearDown(){
