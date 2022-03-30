@@ -13,7 +13,6 @@ import java.util.List;
 public class IndexPage {
     private final WebDriver driver;
     private static final String LOGIN_TEST_DATA_PATH = "src/test/resources/login.csv";
-    private static final String USER_PROFIL_PAGE_URL = "https://jira-auto.codecool.metastage.net/secure/ViewProfile.jspa";
     private final int USERNAME_COLUMN_INDEX = 1;
     private final int PASSWORD_COLUMN_INDEX = 2;
 
@@ -36,6 +35,12 @@ public class IndexPage {
 
     @FindBy(xpath = "//a[@id='header-details-user-fullname']")
     WebElement userIcon;
+
+    @FindBy(xpath = "//a[@id='log_out']")
+    WebElement logoutButton;
+
+    @FindBy(xpath = "//p[@class='title']/strong")
+    WebElement logoutNotification;
 
     public String getWrongCredentialsText(){
         return wrongCredentials.getText();
@@ -61,6 +66,10 @@ public class IndexPage {
         loginButton.click();
     }
 
+    public String getLogoutNotificationText() {
+        return logoutNotification.getText();
+    }
+
     public List<String> getLoginCredentials(String key){
         try {
             return Util.getTestData(key,LOGIN_TEST_DATA_PATH);
@@ -68,10 +77,6 @@ public class IndexPage {
             WebDriverManager.quitWebDriver(driver);
             return null;
         }
-    }
-
-    public String getUserProfilePageUrl(){
-        return USER_PROFIL_PAGE_URL;
     }
 
     public void login(String key){
@@ -84,6 +89,11 @@ public class IndexPage {
     public void successfulLogin(){
         login("valid");
         WebDriverManager.waitUntilVisible(driver, getUserIcon());
+    }
+
+    public void logout(){
+        userIcon.click();
+        logoutButton.click();
     }
 
 

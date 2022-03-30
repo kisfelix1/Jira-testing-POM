@@ -1,6 +1,7 @@
 package base;
 
 import pages.ProfilePage;
+import util.PageUrlCollection;
 import util.WebDriverManager;
 
 public class BaseLoginTest extends BaseTests{
@@ -31,7 +32,7 @@ public class BaseLoginTest extends BaseTests{
 
 
     public void openProfilePage(){
-        driver.get(indexPage.getUserProfilePageUrl());
+        driver.get(PageUrlCollection.PROFIL.getUrl());
         WebDriverManager.waitUntilVisible(driver, profilePage.getUsername());
     }
 }
