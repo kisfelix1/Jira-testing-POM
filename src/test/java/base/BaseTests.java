@@ -43,5 +43,12 @@ public abstract class BaseTests {
         WebDriverManager.quitWebDriver(driver);
     }
 
+    protected void login(){
+        indexPage.successfulLogin();
+    }
+
+    protected void logout(){
+        indexPage.logout();
+    }
 
 }
