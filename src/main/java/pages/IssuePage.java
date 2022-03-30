@@ -8,6 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 public class IssuePage {
     private final WebDriver driver;
 
+    public WebElement getIssueSummary() {
+        return issueSummary;
+    }
+
     public IssuePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -22,8 +26,16 @@ public class IssuePage {
     @FindBy(xpath = "//span[id='type-val']")
     WebElement issueStory;
 
+    @FindBy(xpath = "//input[@id='delete-issue-submit']")
+    WebElement deleteIssueSubmit;
+
+
     public String getIssueKey() {
         return issueKey.getText();
+    }
+
+    public WebElement getDeleteIssueSubmit() {
+        return deleteIssueSubmit;
     }
 
     public String getSummaryText() {
