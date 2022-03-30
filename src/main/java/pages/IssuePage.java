@@ -35,6 +35,9 @@ public class IssuePage {
     @FindBy(xpath = "//input[@id='edit-issue-submit']")
     WebElement screenUpdateButton;
 
+    @FindBy(xpath = "//button[normalize-space()='Cancel']")
+    WebElement screenCancelButton;
+
     public String getIssueKey() {
         return issueKey.getText();
     }
@@ -74,6 +77,14 @@ public class IssuePage {
     public boolean isCorrectType(String type){
         WebDriverManager.waitUntilVisible(driver, issueType);
         return getTypeText().equals(type);
+    }
+
+    public void clickCancelOnScreen(){
+        screenCancelButton.click();
+    }
+
+    public void clickOnAlert(){
+        driver.switchTo().alert().accept();
     }
 
     public void restartPageFactory(){
