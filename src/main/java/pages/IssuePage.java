@@ -1,5 +1,7 @@
 package pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,6 +39,9 @@ public class IssuePage {
 
     @FindBy(xpath = "//button[normalize-space()='Cancel']")
     WebElement screenCancelButton;
+
+    @FindBy(xpath = "//a[@id='comment-issue']")
+    WebElement commentButton;
 
     public String getIssueKey() {
         return issueKey.getText();
@@ -87,7 +92,14 @@ public class IssuePage {
         driver.switchTo().alert().accept();
     }
 
-    public void restartPageFactory(){
-        PageFactory.initElements(driver, this);
+    public boolean hasEditButton(){
+        WebDriverManager.waitUntilVisible(driver, commentButton);
+        try{
+            editIssueButton.isDisplayed();
+            return true;
+        }
+        catch(NoSuchElementException e){
+            return false;
+        }
     }
 }
