@@ -24,7 +24,11 @@ public class EditIssueTest extends BaseEdit {
     @Test
     public void cancelIssueTest() {
         login();
-
+        openDummyIssuePageForCancel();
+        clickEditButton();
+        editIssueWithNewDataThenCancel();
+        clickOnAlert();
+        Assertions.assertTrue(issueNotContainsNewDataAfterCancel());
         logout();
     }
 
