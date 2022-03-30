@@ -8,7 +8,7 @@ import pages.ProjectPage;
 
 public class BrowseProjectTest extends BaseTests {
 
-    private ProjectPage projectPage = new ProjectPage(driver);
+    private final ProjectPage projectPage = new ProjectPage(driver);
 
 
     @Test
