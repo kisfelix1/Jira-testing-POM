@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import util.PageUrlCollection;
 
-public class LoginPageLoginTst extends BaseLoginTest {
+public class LoginPageLoginTest extends BaseLoginTest {
 
-    public LoginPageLoginTst() {
+    public LoginPageLoginTest() {
         super(PageUrlCollection.LOGIN.getUrl());
     }
 
     @Test
     public void successfulLoginTestOnLoginPage() {
-        indexPage.successfulLogin();
+        login();
         openProfilePage();
         Assertions.assertEquals("automation16", profilePage.getUsernameText(), "Username do not match!");
         logout();

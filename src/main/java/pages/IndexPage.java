@@ -4,15 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import util.Util;
 import util.WebDriverManager;
 
-import java.io.IOException;
 import java.util.List;
 
 public class IndexPage {
     private final WebDriver driver;
-    private static final String LOGIN_TEST_DATA_PATH = "src/test/resources/login.csv";
     private final int USERNAME_COLUMN_INDEX = 1;
     private final int PASSWORD_COLUMN_INDEX = 2;
 
@@ -71,25 +68,17 @@ public class IndexPage {
         return logoutNotification.getText();
     }
 
-    public List<String> getLoginCredentials(String key){
-        try {
-            return Util.getTestData(key,LOGIN_TEST_DATA_PATH);
-        }catch (IOException e){
-            WebDriverManager.quitWebDriver(driver);
-            return null;
-        }
-    }
 
-    public void login(String key){
-        List<String> loginCredentials = getLoginCredentials(key);
+
+    public void attemptLogin(List<String> loginCredentials){
         WebDriverManager.waitUntilVisible(driver, passwordInputField);
         setUsernameInputField(loginCredentials);
         setPasswordInputField(loginCredentials);
         clickLoginButton();
     }
 
-    public void successfulLogin(){
-        login("valid");
+    public void successfulLogin(List<String> loginCredentials){
+        attemptLogin(loginCredentials);
         WebDriverManager.waitUntilVisible(driver, getUserIcon());
     }
 
