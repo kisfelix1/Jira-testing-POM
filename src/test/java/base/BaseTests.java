@@ -18,6 +18,10 @@ public abstract class BaseTests {
         this.url = PageUrlCollection.INDEX.getUrl();
     }
 
+    public BaseTests(String url){
+        this.url = url;
+    }
+
     @BeforeAll
     public static void setChromeDriver() {
         if (System.getProperty("os.name").equals("Linux")) {
