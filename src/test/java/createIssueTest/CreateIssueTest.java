@@ -4,7 +4,6 @@ import base.BaseIssueTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pages.IndexPage;
 import util.PageUrlCollection;
 
 
@@ -17,7 +16,7 @@ public class CreateIssueTest extends BaseIssueTest {
 
     @Test
     public void createIssueMTP(){
-        indexPage.fillProjectInputField();
+        indexPage.fillProjectInputField("MTP");
         indexPage.fillSummaryInputField();
         indexPage.clickCreateIssueButton();
         indexPage.navigateToURL(PageUrlCollection.MTP_ISSUE.getUrl());
@@ -29,7 +28,7 @@ public class CreateIssueTest extends BaseIssueTest {
 
     @Test
     public void cancelIssueTest(){
-        indexPage.fillProjectInputField();
+        indexPage.fillProjectInputField("Main");
         indexPage.fillSummaryInputField();
         indexPage.clickToCancelButton();
         indexPage.clickToAlert();
@@ -38,7 +37,19 @@ public class CreateIssueTest extends BaseIssueTest {
                 issuePage.getIssuesH2Text(),
                 "The text does not matching.");
 
+    }
 
-
+    @Test
+    public void createIssueInCoalaProject(){
+        indexPage.fillProjectInputField("COALA");
+        Assertions.assertEquals("COALA project (COALA)",
+                indexPage.getProjectInputField().getAttribute("value"),
+                "Project name is not matching, because you can't create issues to this project.");
+        indexPage.setIssueTypeField("Bug");
+        Assertions.assertEquals("Bug", indexPage.getIssueTypeValue(),"Issue type not matching.");
+        indexPage.setIssueTypeField("Story");
+        Assertions.assertEquals("Story", indexPage.getIssueTypeValue(),"Issue type not matching.");
+        indexPage.setIssueTypeField("Task");
+        Assertions.assertEquals("Task", indexPage.getIssueTypeValue(),"Issue type not matching.");
     }
 }
