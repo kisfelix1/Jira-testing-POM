@@ -29,6 +29,15 @@ public class IssuePage {
     @FindBy(xpath = "//input[@id='delete-issue-submit']")
     WebElement deleteIssueSubmit;
 
+    @FindBy(xpath = "//a[@id='opsbar-operations_more']")
+    WebElement moreButton;
+
+    @FindBy(xpath = "//a/span[contains(text(), 'Delete')]")
+    WebElement deleteButton;
+
+    @FindBy (xpath = "//div[@class='no-results no-results-message']/h2")
+    WebElement issuesH2;
+
 
     public String getIssueKey() {
         return issueKey.getText();
@@ -45,4 +54,9 @@ public class IssuePage {
     public String getStoryText() {
         return issueStory.getText();
     }
+
+    public String getIssuesH2Text(){
+        return issuesH2.getText();
+    }
+
 }
