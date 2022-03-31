@@ -68,4 +68,29 @@ public class BrowseIssueTest extends BaseTests {
                 "Issue key is not matching");
     }
 
+    @Test
+    public void browseIssueTOUCAN_ID_1() {
+        indexPage.goToURL(PageUrlCollection.TOUCAN_ISSUE_ID_1.getUrl());
+        Assertions.assertEquals("TOUCAN-1",
+                issuePage.getIssueKey(),
+                "Issue key is not matching");
+    }
+
+    @Test
+    public void browseIssueTOUCAN_ID_2() {
+        indexPage.goToURL(PageUrlCollection.TOUCAN_ISSUE_ID_2.getUrl());
+        Assertions.assertEquals("TOUCAN-2",
+                issuePage.getIssueKey(),
+                "Issue key is not matching");
+    }
+
+    @Test
+    public void browseIssueTOUCAN_ID_3() {
+        indexPage.goToURL(PageUrlCollection.TOUCAN_ISSUE_ID_3.getUrl());
+        Assertions.assertEquals("TOUCAN-3",
+                issuePage.getIssueKey(),
+                "Issue key is not matching");
+    }
+
+
 }
