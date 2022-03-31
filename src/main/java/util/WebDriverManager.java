@@ -15,4 +15,10 @@ public class WebDriverManager {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+
+    public static void waitUntilClickable(WebDriver driver, WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
 }

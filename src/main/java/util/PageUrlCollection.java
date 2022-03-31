@@ -10,6 +10,7 @@ public enum PageUrlCollection {
     COALA_PROJECT("https://jira-auto.codecool.metastage.net/projects/COALA/summary"),
     TOUCAN_PROJECT("https://jira-auto.codecool.metastage.net/projects/TOUCAN/summary"),
     JETI_PROJECT("https://jira-auto.codecool.metastage.net/projects/JETI/summary");
+    MTP_ISSUE("https://jira-auto.codecool.metastage.net/issues/?jql=project%20%3D%20%22Main%20Testing%20Project%22%20AND%20summary%20~%20MTP-8982431");
 
 
     private final String url;
