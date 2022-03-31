@@ -18,7 +18,6 @@ public class IndexPage {
     private static final String LOGIN_TEST_DATA_PATH = "src/test/resources/login.csv";
     private final int USERNAME_COLUMN_INDEX = 1;
     private final int PASSWORD_COLUMN_INDEX = 2;
-    public static final String issueURL = "https://jira-auto.codecool.metastage.net/issues/?jql=project%20%3D%20%22Main%20Testing%20Project%22%20AND%20summary%20~%20MTP-8982431";
 
     public IndexPage(WebDriver driver) {
         this.driver = driver;
@@ -59,17 +58,14 @@ public class IndexPage {
     @FindBy(xpath = "//input[@id='summary']")
     WebElement summaryInputField;
 
-    @FindBy(xpath = "//a[@id='opsbar-operations_more']")
-    WebElement moreButton;
-
-    @FindBy(xpath = "//a/span[contains(text(), 'Delete')]")
-    WebElement deleteButton;
-
     @FindBy(xpath = "//input[@id='create-issue-submit']")
     WebElement createIssueCreateButton;
 
     @FindBy(xpath = "//a[@class='issue-created-key issue-link']")
     WebElement createIssuePopUp;
+
+    @FindBy(xpath = "//button[@class='aui-button aui-button-link cancel']")
+    WebElement cancelButton;
 
     public String getWrongCredentialsText(){
         return wrongCredentials.getText();
@@ -154,20 +150,22 @@ public class IndexPage {
     }
 
     public void fillSummaryInputField(){
-        WebDriverManager.waitUntilClickable(driver, getSummaryInputField());
-        getSummaryInputField().clear();
-        getSummaryInputField().click();
-        getSummaryInputField().sendKeys("MTP-8982431");
-        getSummaryInputField().sendKeys(Keys.ENTER);
+        try{
+            WebDriverManager.waitUntilClickable(driver, summaryInputField);
+        } catch (Exception e) {
+            WebDriverManager.waitUntilClickable(driver, summaryInputField);
+            e.printStackTrace();
+        }
+        summaryInputField.clear();
+        summaryInputField.click();
+        summaryInputField.sendKeys("MTP-8982431");
+        summaryInputField.sendKeys(Keys.ENTER);
     }
 
     public WebElement getCreateIssueCreateButton() {
         return createIssueCreateButton;
     }
 
-    public WebElement getSummaryInputField() {
-        return summaryInputField;
-    }
 
     public WebElement getProjectInputField() {
         return projectInputField;
@@ -179,10 +177,22 @@ public class IndexPage {
     }
 
     public void deleteIssue(){
-        moreButton.click();
-        WebDriverManager.waitUntilClickable(driver,deleteButton);
-        deleteButton.click();
+        issuePage.moreButton.click();
+        WebDriverManager.waitUntilClickable(driver,issuePage.deleteButton);
+        issuePage.deleteButton.click();
         WebDriverManager.waitUntilClickable(driver,issuePage.getDeleteIssueSubmit());
         issuePage.getDeleteIssueSubmit().click();
+    }
+
+    public void clickToCancelButton(){
+        cancelButton.click();
+    }
+
+    public void clickToAlert(){
+        driver.switchTo().alert().accept();
+    }
+
+    public void goToURL(String url){
+        driver.get(url);
     }
 }
