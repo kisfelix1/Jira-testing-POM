@@ -72,9 +72,11 @@ public class IndexPage {
 
 
     public void attemptLogin(List<String> loginCredentials){
-        WebDriverManager.waitUntilVisible(driver, passwordInputField);
+        WebDriverManager.waitUntilVisible(driver, usernameInputField);
         setUsernameInputField(loginCredentials.get(USERNAME_COLUMN_INDEX));
+        WebDriverManager.waitUntilVisible(driver, passwordInputField);
         setPasswordInputField(loginCredentials.get(PASSWORD_COLUMN_INDEX));
+        WebDriverManager.waitUntilVisible(driver, loginButton);
         clickLoginButton();
     }
 

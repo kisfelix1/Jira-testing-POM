@@ -1,9 +1,13 @@
 package base;
 
+import org.junit.jupiter.api.Assertions;
 import pages.IssuePage;
 import util.PageUrlCollection;
+import util.Util;
 import util.WebDriverManager;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class BaseEdit extends BaseTests{
@@ -17,17 +21,20 @@ public class BaseEdit extends BaseTests{
     private final String NEW_SUMMARY_FOR_CANCEL = "Edited";
     private final String OLD_TYPE_FOR_CANCEL = "Story";
     private final String NEW_TYPE_FOR_CANCEL = "Bug";
+    private final int ISSUE_TYPE_COLUMN_INDEX = 1;
+    private final int ISSUE_ID_COLUMN_INDEX = 2;
+    private static final String EDIT_TEST_DATA_PATH = "src/test/resources/editIssue.csv";
 
 
     public void clickEditButton(){
         issuePage.clickEditButton();
     }
 
-    public void editIssueWithNewData() throws InterruptedException {
+    public void editIssueWithNewData() {
         issuePage.editIssueSummary(NEW_SUMMARY);
         issuePage.editIssueType(NEW_TYPE);
         issuePage.clickUpdateButton();
-        Thread.sleep(2000);
+        driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
     }
 
     public void editIssueWithNewDataThenCancel(){
@@ -62,12 +69,35 @@ public class BaseEdit extends BaseTests{
                 && issuePage.isCorrectType(OLD_TYPE_FOR_CANCEL);
     }
 
-    public boolean editButtonIsVisible(){
+    protected void isIssueEditable(String key){
+        List<String> testData = getIssueData(key);
+        String type = testData.get(ISSUE_TYPE_COLUMN_INDEX);
+        String id = testData.get(ISSUE_ID_COLUMN_INDEX);
+        login();
+        openIssue(type, id);
+        boolean isVisible = isEditButtonVisible();
+        logout();
+        Assertions.assertTrue(isVisible);
+    }
+
+    private List<String> getIssueData(String key){
+        try {
+            return Util.getTestData(key, EDIT_TEST_DATA_PATH);
+        } catch (IOException e){
+            WebDriverManager.quitWebDriver(driver);
+            return null;
+        }
+    }
+
+
+    public boolean isEditButtonVisible(){
         return issuePage.hasEditButton();
     }
 
-    public void openIssue(String issueName, int issueId){
-        driver.get(String.format("https://jira-auto.codecool.metastage.net/projects/%s/issues/%s-%s", issueName, issueName, issueId));
+    public void openIssue(String issueType, String issueId){
+        String url = String.format("https://jira-auto.codecool.metastage.net/projects/%s/issues/%s-%s", issueType, issueType, issueId);
+        System.out.println(url);
+        driver.get(url);
     }
 
     public void openDummyIssuePage(){
@@ -77,4 +107,6 @@ public class BaseEdit extends BaseTests{
     public void openDummyIssuePageForCancel() {
         driver.get(PageUrlCollection.CANCEL_EDIT_DUMMY_ISSUE.getUrl());
     }
+
+
 }
