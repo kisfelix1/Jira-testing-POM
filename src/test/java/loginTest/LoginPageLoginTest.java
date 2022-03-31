@@ -15,7 +15,7 @@ public class LoginPageLoginTest extends BaseLoginTest {
     public void successfulLoginTestOnLoginPage() {
         login();
         openProfilePage();
-        Assertions.assertEquals("automation16", profilePage.getUsernameText(), "Username do not match!");
+        Assertions.assertEquals(getLoggedInUserName(), profilePage.getUsernameText(), "Username do not match!");
         logout();
     }
 

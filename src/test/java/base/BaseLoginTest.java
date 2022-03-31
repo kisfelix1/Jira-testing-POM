@@ -1,5 +1,6 @@
 package base;
 
+import pages.IndexPage;
 import pages.ProfilePage;
 import util.PageUrlCollection;
 import util.WebDriverManager;
@@ -32,5 +33,9 @@ public class BaseLoginTest extends BaseTests{
     public void openProfilePage(){
         driver.get(PageUrlCollection.PROFILE.getUrl());
         WebDriverManager.waitUntilVisible(driver, profilePage.getUsername());
+    }
+
+    protected String getLoggedInUserName(){
+        return getLoginCredentials("valid").get(IndexPage.USERNAME_COLUMN_INDEX);
     }
 }
