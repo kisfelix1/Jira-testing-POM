@@ -1,6 +1,7 @@
 package createIssueTest;
 
 import base.BaseIssueTest;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,11 +9,18 @@ import util.PageUrlCollection;
 
 
 public class CreateIssueTest extends BaseIssueTest {
+
     @BeforeEach
     public void prepareCreateIssueTest() {
         login();
         indexPage.openCreateIssueModal();
     }
+
+    @AfterEach
+    public void logoutAfterMethod(){
+        logout();
+    }
+
 
     @Test
     public void createIssueMTP(){
