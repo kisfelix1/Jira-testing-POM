@@ -73,11 +73,8 @@ public class BaseEdit extends BaseTests{
         List<String> testData = getIssueData(key);
         String type = testData.get(ISSUE_TYPE_COLUMN_INDEX);
         String id = testData.get(ISSUE_ID_COLUMN_INDEX);
-        login();
         openIssue(type, id);
-        boolean isVisible = isEditButtonVisible();
-        logout();
-        Assertions.assertTrue(isVisible);
+        Assertions.assertTrue(isEditButtonVisible());
     }
 
     private List<String> getIssueData(String key){

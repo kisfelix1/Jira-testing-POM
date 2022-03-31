@@ -1,6 +1,7 @@
 package base;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
@@ -50,6 +51,12 @@ public abstract class BaseTests {
     @BeforeEach
     public void prepareTest() {
         openPage();
+        login();
+    }
+
+    @AfterEach
+    public void logoutAfterTest(){
+        logout();
     }
 
     protected void openPage() {
