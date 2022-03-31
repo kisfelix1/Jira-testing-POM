@@ -19,4 +19,28 @@ public class BrowseIssueTest extends BaseTests {
                 issuePage.getIssueKey(),
                 "Issue key is not matching");
     }
+
+    @Test
+    public void browseIssueCOALA_ID_1(){
+        indexPage.goToURL(PageUrlCollection.COALA_ISSUE_ID_1.getUrl());
+        Assertions.assertEquals("COALA-1",
+                issuePage.getIssueKey(),
+                "Issue key is not matching");
+    }
+
+    @Test
+    public void browseIssueCOALA_ID_2(){
+        indexPage.goToURL(PageUrlCollection.COALA_ISSUE_ID_2.getUrl());
+        Assertions.assertEquals("COALA-2",
+                issuePage.getIssueKey(),
+                "Issue key is not matching");
+    }
+
+    @Test
+    public void browseIssueCOALA_ID_3(){
+        indexPage.goToURL(PageUrlCollection.COALA_ISSUE_ID_3.getUrl());
+        Assertions.assertEquals("COALA-3",
+                issuePage.getIssueKey(),
+                "Issue key is not matching");
+    }
 }
