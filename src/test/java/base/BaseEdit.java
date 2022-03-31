@@ -8,6 +8,7 @@ import util.WebDriverManager;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BaseEdit extends BaseTests{
     protected IssuePage issuePage = new IssuePage(driver);
@@ -29,11 +30,11 @@ public class BaseEdit extends BaseTests{
         issuePage.clickEditButton();
     }
 
-    public void editIssueWithNewData() throws InterruptedException {
+    public void editIssueWithNewData() {
         issuePage.editIssueSummary(NEW_SUMMARY);
         issuePage.editIssueType(NEW_TYPE);
         issuePage.clickUpdateButton();
-        Thread.sleep(2000);
+        driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
     }
 
     public void editIssueWithNewDataThenCancel(){
@@ -69,13 +70,14 @@ public class BaseEdit extends BaseTests{
     }
 
     protected void isIssueEditable(String key){
-        login();
         List<String> testData = getIssueData(key);
         String type = testData.get(ISSUE_TYPE_COLUMN_INDEX);
         String id = testData.get(ISSUE_ID_COLUMN_INDEX);
+        login();
         openIssue(type, id);
-        Assertions.assertTrue(isEditButtonVisible());
+        boolean isVisible = isEditButtonVisible();
         logout();
+        Assertions.assertTrue(isVisible);
     }
 
     private List<String> getIssueData(String key){
@@ -92,8 +94,8 @@ public class BaseEdit extends BaseTests{
         return issuePage.hasEditButton();
     }
 
-    public void openIssue(String issueName, String issueId){
-        String url = String.format("https://jira-auto.codecool.metastage.net/projects/%s/issues/%s-%s", issueName, issueName, issueId);
+    public void openIssue(String issueType, String issueId){
+        String url = String.format("https://jira-auto.codecool.metastage.net/projects/%s/issues/%s-%s", issueType, issueType, issueId);
         System.out.println(url);
         driver.get(url);
     }

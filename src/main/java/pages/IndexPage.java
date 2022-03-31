@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,8 +11,8 @@ import java.util.List;
 
 public class IndexPage {
     private final WebDriver driver;
-    private final int USERNAME_COLUMN_INDEX = 1;
-    private final int PASSWORD_COLUMN_INDEX = 2;
+    public static final int USERNAME_COLUMN_INDEX = 1;
+    public static final int PASSWORD_COLUMN_INDEX = 2;
 
     public IndexPage(WebDriver driver) {
         this.driver = driver;
@@ -51,12 +52,12 @@ public class IndexPage {
         return userIcon;
     }
 
-    public void setUsernameInputField(List<String> data){
-        usernameInputField.sendKeys(data.get(USERNAME_COLUMN_INDEX));
+    public void setUsernameInputField(String userName){
+        usernameInputField.sendKeys(userName);
     }
 
-    public void setPasswordInputField(List<String> data){
-        passwordInputField.sendKeys(data.get(PASSWORD_COLUMN_INDEX));
+    public void setPasswordInputField(String password){
+        passwordInputField.sendKeys(password);
     }
 
     public void clickLoginButton(){
@@ -71,9 +72,11 @@ public class IndexPage {
 
 
     public void attemptLogin(List<String> loginCredentials){
+        WebDriverManager.waitUntilVisible(driver, usernameInputField);
+        setUsernameInputField(loginCredentials.get(USERNAME_COLUMN_INDEX));
         WebDriverManager.waitUntilVisible(driver, passwordInputField);
-        setUsernameInputField(loginCredentials);
-        setPasswordInputField(loginCredentials);
+        setPasswordInputField(loginCredentials.get(PASSWORD_COLUMN_INDEX));
+        WebDriverManager.waitUntilVisible(driver, loginButton);
         clickLoginButton();
     }
 
@@ -83,7 +86,9 @@ public class IndexPage {
     }
 
     public void logout(){
+        WebDriverManager.waitUntilVisible(driver, userIcon);
         userIcon.click();
+        WebDriverManager.waitUntilVisible(driver, logoutButton);
         logoutButton.click();
     }
 
