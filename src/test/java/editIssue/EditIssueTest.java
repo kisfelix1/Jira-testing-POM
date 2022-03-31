@@ -33,73 +33,46 @@ public class EditIssueTest extends BaseEdit {
 
     @Test
     public void editToucanIssue1Test() {
-        login();
-        openIssue("TOUCAN", 1);
-        Assertions.assertTrue(editButtonIsVisible());
-        logout();
+        isIssueEditable("TOUCAN-1");
     }
 
     @Test
     public void editToucanIssue2Test() {
-        login();
-        openIssue("TOUCAN", 2);
-        Assertions.assertTrue(editButtonIsVisible());
-        logout();
+        isIssueEditable("TOUCAN-2");
     }
 
     @Test
     public void editToucanIssue3Test() {
-        login();
-        openIssue("TOUCAN", 3);
-        Assertions.assertTrue(editButtonIsVisible());
-        logout();
+        isIssueEditable("TOUCAN-3");
     }
 
     @Test
-    public void editCoalaIssue1Test() {
-        login();
-        openIssue("COALA", 1);
-        Assertions.assertTrue(editButtonIsVisible());
-        logout();
+    public void editCoalaIssue1Test()  {
+        isIssueEditable("COALA-1");
     }
 
     @Test
     public void editCoalaIssue2Test() {
-        login();
-        openIssue("COALA", 2);
-        Assertions.assertTrue(editButtonIsVisible());
-        logout();
+        isIssueEditable("COALA-2");
     }
 
     @Test
     public void editCoalaIssue3Test() {
-        login();
-        openIssue("COALA", 3);
-        Assertions.assertTrue(editButtonIsVisible());
-        logout();
+        isIssueEditable("COALA-3");
     }
 
     @Test
     public void editJetiIssue1Test() {
-        login();
-        openIssue("JETI", 1);
-        Assertions.assertTrue(editButtonIsVisible());
-        logout();
+        isIssueEditable("JETI-1");
     }
 
     @Test
     public void editJetiIssue2Test() {
-        login();
-        openIssue("JETI", 2);
-        Assertions.assertTrue(editButtonIsVisible());
-        logout();
+        isIssueEditable("JETI-2");
     }
 
     @Test
     public void editJetiIssue3Test() {
-        login();
-        openIssue("JETI", 3);
-        Assertions.assertTrue(editButtonIsVisible());
-        logout();
+        isIssueEditable("JETI-3");
     }
 }

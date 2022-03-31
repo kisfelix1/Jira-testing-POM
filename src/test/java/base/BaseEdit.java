@@ -62,7 +62,27 @@ public class BaseEdit extends BaseTests{
                 && issuePage.isCorrectType(OLD_TYPE_FOR_CANCEL);
     }
 
-    public boolean editButtonIsVisible(){
+    protected void isIssueEditable(String key){
+        login();
+        List<String> testData = getIssueData(key);
+        String type = testData.get(ISSUE_TYPE_COLUMN_INDEX);
+        String id = testData.get(ISSUE_ID_COLUMN_INDEX);
+        openIssue(type, id);
+        Assertions.assertTrue(isEditButtonVisible());
+        logout();
+    }
+
+    private List<String> getIssueData(String key){
+        try {
+            return Util.getTestData(key, EDIT_TEST_DATA_PATH);
+        } catch (IOException e){
+            WebDriverManager.quitWebDriver(driver);
+            return null;
+        }
+    }
+
+
+    public boolean isEditButtonVisible(){
         return issuePage.hasEditButton();
     }
 
