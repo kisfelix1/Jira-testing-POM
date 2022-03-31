@@ -4,17 +4,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import util.Util;
 import util.WebDriverManager;
 
-import java.io.IOException;
 import java.util.List;
 
 public class IndexPage {
     private final WebDriver driver;
-    private static final String LOGIN_TEST_DATA_PATH = "src/test/resources/login.csv";
-    private final int USERNAME_COLUMN_INDEX = 1;
-    private final int PASSWORD_COLUMN_INDEX = 2;
+    public static final int USERNAME_COLUMN_INDEX = 1;
+    public static final int PASSWORD_COLUMN_INDEX = 2;
 
     public IndexPage(WebDriver driver) {
         this.driver = driver;
@@ -54,12 +51,12 @@ public class IndexPage {
         return userIcon;
     }
 
-    public void setUsernameInputField(List<String> data){
-        usernameInputField.sendKeys(data.get(USERNAME_COLUMN_INDEX));
+    public void setUsernameInputField(String userName){
+        usernameInputField.sendKeys(userName);
     }
 
-    public void setPasswordInputField(List<String> data){
-        passwordInputField.sendKeys(data.get(PASSWORD_COLUMN_INDEX));
+    public void setPasswordInputField(String password){
+        passwordInputField.sendKeys(password);
     }
 
     public void clickLoginButton(){
@@ -71,25 +68,17 @@ public class IndexPage {
         return logoutNotification.getText();
     }
 
-    public List<String> getLoginCredentials(String key){
-        try {
-            return Util.getTestData(key,LOGIN_TEST_DATA_PATH);
-        }catch (IOException e){
-            WebDriverManager.quitWebDriver(driver);
-            return null;
-        }
-    }
 
-    public void login(String key){
-        List<String> loginCredentials = getLoginCredentials(key);
+
+    public void attemptLogin(List<String> loginCredentials){
         WebDriverManager.waitUntilVisible(driver, passwordInputField);
-        setUsernameInputField(loginCredentials);
-        setPasswordInputField(loginCredentials);
+        setUsernameInputField(loginCredentials.get(USERNAME_COLUMN_INDEX));
+        setPasswordInputField(loginCredentials.get(PASSWORD_COLUMN_INDEX));
         clickLoginButton();
     }
 
-    public void successfulLogin(){
-        login("valid");
+    public void successfulLogin(List<String> loginCredentials){
+        attemptLogin(loginCredentials);
         WebDriverManager.waitUntilVisible(driver, getUserIcon());
     }
 

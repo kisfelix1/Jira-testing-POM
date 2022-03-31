@@ -1,38 +1,41 @@
 package base;
 
+import pages.IndexPage;
 import pages.ProfilePage;
 import util.PageUrlCollection;
 import util.WebDriverManager;
+
+import java.util.List;
 
 public class BaseLoginTest extends BaseTests{
     protected ProfilePage profilePage = new ProfilePage(driver);
 
     public BaseLoginTest(String url) {
-        this.url = url;
-    }
-
-
-    public void wrongPasswordLogin(){
-        indexPage.login("invalid_password");
-        waitForWrongLoginCredentialPopup();
+        super(url);
     }
 
     public void emptyCredentialLogin() {
         indexPage.clickLoginButton();
-        waitForWrongLoginCredentialPopup();
+        waitForLoginFailPopupText();
     }
 
-    private void waitForWrongLoginCredentialPopup(){
+    public void wrongPasswordLogin(){
+        List<String> loginCredentials = getLoginCredentials("invalid_password");
+        indexPage.attemptLogin(loginCredentials);
+        waitForLoginFailPopupText();
+    }
+
+    private void waitForLoginFailPopupText(){
         WebDriverManager.waitUntilVisible(driver, indexPage.getWrongCredentials());
-    }
-
-    public void wrongPasswordLoginTest() {
-
     }
 
 
     public void openProfilePage(){
-        driver.get(PageUrlCollection.PROFIL.getUrl());
+        driver.get(PageUrlCollection.PROFILE.getUrl());
         WebDriverManager.waitUntilVisible(driver, profilePage.getUsername());
+    }
+
+    protected String getLoggedInUserName(){
+        return getLoginCredentials("valid").get(IndexPage.USERNAME_COLUMN_INDEX);
     }
 }
