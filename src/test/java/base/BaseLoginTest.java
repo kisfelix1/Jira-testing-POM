@@ -1,5 +1,6 @@
 package base;
 
+import org.junit.jupiter.api.BeforeEach;
 import pages.IndexPage;
 import pages.ProfilePage;
 import util.PageUrlCollection;
@@ -12,6 +13,12 @@ public class BaseLoginTest extends BaseTests{
 
     public BaseLoginTest(String url) {
         super(url);
+    }
+
+    @Override
+    @BeforeEach
+    public void prepareTest() {
+        openPage();
     }
 
     public void emptyCredentialLogin() {

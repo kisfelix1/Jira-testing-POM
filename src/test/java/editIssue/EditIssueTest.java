@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 public class EditIssueTest extends BaseEdit {
 
     @Test
-    public void editIssueThroughScreenTest() throws InterruptedException {
-        login();
+    public void editIssueThroughScreenTest() {
         openDummyIssuePage();
         Assertions.assertTrue(issueContainsOldData());
         clickEditButton();
@@ -17,18 +16,15 @@ public class EditIssueTest extends BaseEdit {
         refreshPage();
         Assertions.assertTrue(issueContainsNewData());
         revertIssueToOldData();
-        logout();
     }
 
     @Test
     public void cancelIssueTest() {
-        login();
         openDummyIssuePageForCancel();
         clickEditButton();
         editIssueWithNewDataThenCancel();
         clickOnAlert();
         Assertions.assertTrue(issueNotContainsNewDataAfterCancel());
-        logout();
     }
 
     @Test
@@ -75,4 +71,5 @@ public class EditIssueTest extends BaseEdit {
     public void editJetiIssue3Test() {
         isIssueEditable("JETI-3");
     }
+
 }
