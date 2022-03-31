@@ -1,11 +1,11 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import util.PageUrlCollection;
 import util.Util;
 import util.WebDriverManager;
 
@@ -55,14 +55,14 @@ public class IndexPage {
     @FindBy(xpath = "//input[@id='issuetype-field']")
     WebElement issueTypeField;
 
-    @FindBy(xpath = "//input[@id='summary']")
-    WebElement summaryInputField;
-
     @FindBy(xpath = "//input[@id='create-issue-submit']")
     WebElement createIssueCreateButton;
 
     @FindBy(xpath = "//a[@class='issue-created-key issue-link']")
     WebElement createIssuePopUp;
+
+    @FindBy(xpath = "//input[@id='summary']")
+    WebElement summaryInputField;
 
     @FindBy(xpath = "//button[@class='aui-button aui-button-link cancel']")
     WebElement cancelButton;
@@ -117,8 +117,16 @@ public class IndexPage {
     }
 
     public void logout(){
+        driver.get(PageUrlCollection.INDEX.getUrl());
+        try{
+            WebDriverManager.waitUntilClickable(driver, userIcon);
+        } catch (Exception e) {
+            WebDriverManager.waitUntilClickable(driver, userIcon);
+            e.printStackTrace();
+        }
         userIcon.click();
         logoutButton.click();
+        driver.get(PageUrlCollection.INDEX.getUrl());
     }
 
     public void openCreateIssueModal() {
@@ -131,11 +139,11 @@ public class IndexPage {
         createIssuePopUp.click();
     }
 
-    public void fillProjectInputField(){
+    public void fillProjectInputField(String text){
         getProjectInputField().clear();
         getProjectInputField().click();
-        getProjectInputField().sendKeys("MTP");
-        getProjectInputField().sendKeys(Keys.ENTER);
+        getProjectInputField().sendKeys(text);
+        getProjectInputField().sendKeys(Keys.TAB);
     }
 
     public String getSummaryIssueName(){
@@ -150,6 +158,7 @@ public class IndexPage {
     }
 
     public void fillSummaryInputField(){
+        // second try
         try{
             WebDriverManager.waitUntilClickable(driver, summaryInputField);
         } catch (Exception e) {
@@ -168,11 +177,17 @@ public class IndexPage {
 
 
     public WebElement getProjectInputField() {
+        try{
+            WebDriverManager.waitUntilClickable(driver, projectInputField);
+        } catch (Exception e) {
+            WebDriverManager.waitUntilClickable(driver, projectInputField);
+            e.printStackTrace();
+        }
         return projectInputField;
     }
 
     public void clickCreateIssueButton() {
-        WebDriverManager.waitUntilVisible(driver, getCreateIssueCreateButton());
+        WebDriverManager.waitUntilClickable(driver, getCreateIssueCreateButton());
         getCreateIssueCreateButton().click();
     }
 
@@ -195,4 +210,24 @@ public class IndexPage {
     public void goToURL(String url){
         driver.get(url);
     }
+
+    public String getIssueTypeValue(){
+        return issueTypeField.getAttribute("value");
+
+    }
+
+    public void setIssueTypeField(String text){
+
+        try{
+            WebDriverManager.waitUntilClickable(driver, issueTypeField);
+        } catch (Exception e) {
+            WebDriverManager.waitUntilClickable(driver, issueTypeField);
+            e.printStackTrace();
+        }
+        issueTypeField.click();
+        issueTypeField.sendKeys(Keys.DELETE);
+        issueTypeField.sendKeys(text);
+        issueTypeField.sendKeys(Keys.ENTER);
+    }
+
 }
