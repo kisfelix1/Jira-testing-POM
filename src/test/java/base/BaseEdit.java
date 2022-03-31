@@ -1,10 +1,13 @@
 package base;
 
+import org.junit.jupiter.api.Assertions;
 import pages.IssuePage;
 import util.PageUrlCollection;
+import util.Util;
 import util.WebDriverManager;
 
-import java.util.concurrent.TimeUnit;
+import java.io.IOException;
+import java.util.List;
 
 public class BaseEdit extends BaseTests{
     protected IssuePage issuePage = new IssuePage(driver);
@@ -17,6 +20,9 @@ public class BaseEdit extends BaseTests{
     private final String NEW_SUMMARY_FOR_CANCEL = "Edited";
     private final String OLD_TYPE_FOR_CANCEL = "Story";
     private final String NEW_TYPE_FOR_CANCEL = "Bug";
+    private final int ISSUE_TYPE_COLUMN_INDEX = 1;
+    private final int ISSUE_ID_COLUMN_INDEX = 2;
+    private static final String EDIT_TEST_DATA_PATH = "src/test/resources/editIssue.csv";
 
 
     public void clickEditButton(){
@@ -86,8 +92,10 @@ public class BaseEdit extends BaseTests{
         return issuePage.hasEditButton();
     }
 
-    public void openIssue(String issueName, int issueId){
-        driver.get(String.format("https://jira-auto.codecool.metastage.net/projects/%s/issues/%s-%s", issueName, issueName, issueId));
+    public void openIssue(String issueName, String issueId){
+        String url = String.format("https://jira-auto.codecool.metastage.net/projects/%s/issues/%s-%s", issueName, issueName, issueId);
+        System.out.println(url);
+        driver.get(url);
     }
 
     public void openDummyIssuePage(){
@@ -97,4 +105,6 @@ public class BaseEdit extends BaseTests{
     public void openDummyIssuePageForCancel() {
         driver.get(PageUrlCollection.CANCEL_EDIT_DUMMY_ISSUE.getUrl());
     }
+
+
 }
