@@ -1,14 +1,12 @@
 package pages;
 
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import util.PageUrlCollection;
-import util.Util;
 import util.WebDriverManager;
 
 import java.util.List;
@@ -42,6 +40,9 @@ public class IndexPage {
 
     @FindBy(xpath = "//a[@id='log_out']")
     WebElement logoutButton;
+
+    @FindBy(xpath = "//a[@class='aui-nav-link login-link']")
+    WebElement headerLoginButton;
 
     @FindBy(xpath = "//p[@class='title']/strong")
     WebElement logoutNotification;
@@ -92,8 +93,8 @@ public class IndexPage {
         loginButton.click();
     }
 
-    public String getLogoutNotificationText() {
-        return logoutNotification.getText();
+    public boolean isHeaderLoginButtonVisible() {
+        return headerLoginButton.isDisplayed();
     }
 
 

@@ -10,11 +10,8 @@ public class LogoutTest extends BaseLogout {
     public void logoutTest(){
         login();
         logout();
-        Assertions.assertEquals("You are now logged out. Any automatic login has also been stopped.",
-                indexPage.getLogoutNotificationText(),
-                "The logout notification does not matching.");
+        Assertions.assertTrue(indexPage.isHeaderLoginButtonVisible(),
+                "Header login button not visible");
     }
 
-    @Override
-    public void logoutAfterTest(){}
 }

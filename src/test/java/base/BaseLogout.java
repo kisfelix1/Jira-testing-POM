@@ -9,4 +9,7 @@ public class BaseLogout extends BaseTests{
     public void prepareTest() {
         openPage();
     }
+
+    @Override
+    public void logoutAfterTest(){}
 }
