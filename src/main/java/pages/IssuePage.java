@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import util.WebDriverManager;
 
+import java.util.concurrent.TimeUnit;
+
 public class IssuePage {
     private final WebDriver driver;
 
@@ -93,8 +95,8 @@ public class IssuePage {
     }
 
     public boolean hasEditButton(){
-        WebDriverManager.waitUntilVisible(driver, commentButton);
         try{
+            driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
             editIssueButton.isDisplayed();
             return true;
         }
