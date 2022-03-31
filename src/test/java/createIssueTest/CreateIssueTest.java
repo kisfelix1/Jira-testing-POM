@@ -60,4 +60,39 @@ public class CreateIssueTest extends BaseIssueTest {
         indexPage.setIssueTypeField("Task");
         Assertions.assertEquals("Task", indexPage.getIssueTypeValue(),"Issue type not matching.");
     }
+
+    @Test
+    public void createIssueInJetiProject(){
+        indexPage.fillProjectInputField("JETI");
+        Assertions.assertEquals("JETI project (JETI)",
+                indexPage.getProjectInputField().getAttribute("value"),
+                "Project name is not matching, because you can't create issues to this project.");
+        indexPage.setIssueTypeField("Bug");
+        Assertions.assertEquals("Bug", indexPage.getIssueTypeValue(),"Issue type not matching.");
+
+        indexPage.setIssueTypeField("Story");
+        Assertions.assertEquals("Story", indexPage.getIssueTypeValue(),"Issue type not matching.");
+
+        indexPage.setIssueTypeField("Task");
+        Assertions.assertEquals("Task", indexPage.getIssueTypeValue(),"Issue type not matching.");
+
+    }
+
+    @Test
+    public void createIssueInToucanProject(){
+
+        indexPage.fillProjectInputField("TOUCAN");
+        Assertions.assertEquals("TOUCAN project (TOUCAN)",
+                indexPage.getProjectInputField().getAttribute("value"),
+                "Project name is not matching, because you can't create issues to this project.");
+        indexPage.setIssueTypeField("Bug");
+        Assertions.assertEquals("Bug", indexPage.getIssueTypeValue(),"Issue type not matching.");
+
+        indexPage.setIssueTypeField("Story");
+        Assertions.assertEquals("Story", indexPage.getIssueTypeValue(),"Issue type not matching.");
+
+        indexPage.setIssueTypeField("Task");
+        Assertions.assertEquals("Task", indexPage.getIssueTypeValue(),"Issue type not matching.");
+
+    }
 }
