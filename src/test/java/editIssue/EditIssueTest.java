@@ -3,6 +3,8 @@ package editIssue;
 import base.BaseEdit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 public class EditIssueTest extends BaseEdit {
 
@@ -27,49 +29,12 @@ public class EditIssueTest extends BaseEdit {
         Assertions.assertTrue(issueNotContainsNewDataAfterCancel());
     }
 
-    @Test
-    public void editToucanIssue1Test() {
-        isIssueEditable("TOUCAN-1");
+    @ParameterizedTest
+    @CsvFileSource(resources = "/src/test/resources/editIssue.csv", delimiter = ',' ,numLinesToSkip = 1)
+    public void editSpecificIssueTest(String type, String id) {
+        openIssue(type, id);
+        Assertions.assertTrue(isEditButtonVisible());
     }
 
-    @Test
-    public void editToucanIssue2Test() {
-        isIssueEditable("TOUCAN-2");
-    }
-
-    @Test
-    public void editToucanIssue3Test() {
-        isIssueEditable("TOUCAN-3");
-    }
-
-    @Test
-    public void editCoalaIssue1Test()  {
-        isIssueEditable("COALA-1");
-    }
-
-    @Test
-    public void editCoalaIssue2Test() {
-        isIssueEditable("COALA-2");
-    }
-
-    @Test
-    public void editCoalaIssue3Test() {
-        isIssueEditable("COALA-3");
-    }
-
-    @Test
-    public void editJetiIssue1Test() {
-        isIssueEditable("JETI-1");
-    }
-
-    @Test
-    public void editJetiIssue2Test() {
-        isIssueEditable("JETI-2");
-    }
-
-    @Test
-    public void editJetiIssue3Test() {
-        isIssueEditable("JETI-3");
-    }
 
 }
