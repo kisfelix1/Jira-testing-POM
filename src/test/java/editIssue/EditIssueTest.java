@@ -30,7 +30,7 @@ public class EditIssueTest extends BaseEdit {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/src/test/resources/editIssue.csv", delimiter = ',' ,numLinesToSkip = 1)
+    @CsvFileSource(resources = "/editIssue.csv", delimiter = ',', numLinesToSkip = 1)
     public void editSpecificIssueTest(String type, String id) {
         openIssue(type, id);
         Assertions.assertTrue(isEditButtonVisible());
