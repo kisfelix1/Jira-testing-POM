@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -46,9 +45,6 @@ public class IssuePage {
     @FindBy(xpath = "//button[normalize-space()='Cancel']")
     WebElement screenCancelButton;
 
-    @FindBy(xpath = "//a[@id='comment-issue']")
-    WebElement commentButton;
-
     @FindBy(xpath = "//input[@id='delete-issue-submit']")
     WebElement deleteIssueSubmit;
 
@@ -63,6 +59,7 @@ public class IssuePage {
 
 
     public String getIssueKey() {
+        WebDriverManager.waitUntilVisible(driver, issueKey);
         return issueKey.getText();
     }
 
@@ -129,5 +126,7 @@ public class IssuePage {
     public String getIssuesH2Text(){
         return issuesH2.getText();
     }
+
+
 
 }

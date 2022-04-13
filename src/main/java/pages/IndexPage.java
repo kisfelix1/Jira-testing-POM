@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import util.PageUrlCollection;
 import util.WebDriverManager;
 
@@ -19,7 +20,7 @@ public class IndexPage {
 
     public IndexPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 3), this);
         this.issuePage = new IssuePage(driver);
     }
 
@@ -158,11 +159,13 @@ public class IndexPage {
     public void fillSummaryInputField(){
         // second try
         try{
+            // custom wait
             WebDriverManager.waitUntilClickable(driver, summaryInputField);
         } catch (Exception e) {
             WebDriverManager.waitUntilClickable(driver, summaryInputField);
             e.printStackTrace();
         }
+        WebDriverManager.waitUntilClickable(driver, summaryInputField);
         summaryInputField.clear();
         summaryInputField.click();
         summaryInputField.sendKeys("MTP-8982431");
