@@ -69,13 +69,6 @@ public class BaseEdit extends BaseTests{
                 && issuePage.isCorrectType(OLD_TYPE_FOR_CANCEL);
     }
 
-    protected void isIssueEditable(String key){
-        List<String> testData = getIssueData(key);
-        String type = testData.get(ISSUE_TYPE_COLUMN_INDEX);
-        String id = testData.get(ISSUE_ID_COLUMN_INDEX);
-        openIssue(type, id);
-        Assertions.assertTrue(isEditButtonVisible());
-    }
 
     private List<String> getIssueData(String key){
         try {
