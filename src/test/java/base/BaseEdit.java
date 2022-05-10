@@ -72,7 +72,7 @@ public class BaseEdit extends BaseTests{
 
     private List<String> getIssueData(String key){
         try {
-            System.out.println("pipeline1");
+            System.out.println("pipeline2");
             return Util.getTestData(key, EDIT_TEST_DATA_PATH);
         } catch (IOException e){
             WebDriverManager.quitWebDriver(driver);
