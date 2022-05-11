@@ -6,12 +6,16 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.IndexPage;
 import util.PageUrlCollection;
 import util.Util;
 import util.WebDriverManager;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public abstract class BaseTests {
@@ -29,13 +33,16 @@ public abstract class BaseTests {
     }
 
     @BeforeAll
-    public static void setChromeDriver() {
+    public static void setChromeDriver() throws MalformedURLException {
         if (System.getProperty("os.name").equals("Linux")) {
             System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
         } else {
             System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         }
-        driver = new ChromeDriver();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setCapability("browseVersion", "96");
+        chromeOptions.setCapability("platformName", "Linux");
+        driver = new RemoteWebDriver(new URL("https://selenium:CCAutoTest19.@seleniumhub.codecool.metastage.net/"), chromeOptions);
         driver.manage().window().maximize();
     }
 
