@@ -5,6 +5,7 @@ import org.openqa.selenium.NotFoundException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Util {
@@ -14,7 +15,7 @@ public class Util {
         br.readLine();
         String line = "";
         while((line = br.readLine()) != null) {
-            result.add(List.of(line.split(",")));
+            result.add(Arrays.asList(line.split(",")));
         }
         br.close();
         return result;
