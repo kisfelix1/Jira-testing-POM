@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Automated_Tests_3_Test_Types" target="17" />
       <module name="Jira-testing-POM" target="17" />
     </bytecodeTargetLevel>
   </component>

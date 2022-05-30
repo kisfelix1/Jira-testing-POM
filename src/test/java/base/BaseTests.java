@@ -34,15 +34,10 @@ public abstract class BaseTests {
 
     @BeforeAll
     public static void setChromeDriver() throws MalformedURLException {
-        if (System.getProperty("os.name").equals("Linux")) {
-            System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-        } else {
-            System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        }
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setCapability("browseVersion", "96");
-        chromeOptions.setCapability("platformName", "Linux");
-        driver = new RemoteWebDriver(new URL("https://selenium:CCAutoTest19.@seleniumhub.codecool.metastage.net/"), chromeOptions);
+//        chromeOptions.setCapability("browseVersion", "94");
+        chromeOptions.setCapability("platformName", "LINUX");
+        driver = new RemoteWebDriver(new URL("http://gretsapdomain.ddns.net:4444/wd/hub/"), chromeOptions);
         driver.manage().window().maximize();
     }
 
